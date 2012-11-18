@@ -29,27 +29,27 @@ Installation
   /opt/rancid/bin/rancid-fe) and insert a new item in the %vendortable
   dictionary:
 
-	'cisco-sb'        => 'csbrancid',
+		'cisco-sb'        => 'csbrancid',
 
 Usage
 -----
 
 - Insert the device to backup in the router.db file:
 
-	test.example.com:cisco-sb:up:
+		test.example.com:cisco-sb:up:
 
 - Modify your .cloginrc file:
 
-	add user test.example.com        {user}
-	add password test.example.com     {password}
-	add autoenable test.example.com    1
-	add method test.example.com        ssh
-	add userprompt test.example.com  {"User Name:"}
+		add user test.example.com        {user}
+		add password test.example.com     {password}
+		add autoenable test.example.com    1
+		add method test.example.com        ssh
+		add userprompt test.example.com  {"User Name:"}
 
 - Enjoy it!
 
 
 Christian Pinedo
 
-[1] http://www.cisco.com/en/US/products/ps10898/index.html
-[2] http://www.mork.no/%7Ebjorn/srw2008/
+[1] http://www.cisco.com/en/US/products/ps10898/index.html  
+[2] http://www.mork.no/%7Ebjorn/srw2008/  
