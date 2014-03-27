@@ -348,7 +348,7 @@ if ($ENV{"FILTER_PWDS"} =~ /no/i) {
     $filter_pwds = 1;
 }
 
-ProcessHistory("","","","!RANCID-CONTENT-TYPE: linksys\n!\n");
+ProcessHistory("","","","!RANCID-CONTENT-TYPE: cisco-sb\n!\n");
 ProcessHistory("COMMENTS","keysort","B0","!\n");	# show version
 ProcessHistory("COMMENTS","keysort","C0","!\n");	# show package
 ProcessHistory("COMMENTS","keysort","D0","!\n");	# show hardware
