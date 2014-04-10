@@ -175,8 +175,11 @@ sub ShowSystem {
 	next if(/^(\s*|\s*$cmd\s*)$/);
 	return(-1) if (/command authorization failed/i);
 
-	# remove uptime
+	# remove uptime & fan status
 	/ Up Time/ && next;
+	/ Fans Status/ && next;
+	/ Temperature/ && next;
+	/ OK/ && next;
 
 	ProcessHistory("COMMENTS","keysort","B0", "!$_") && next;
 
@@ -201,8 +204,8 @@ sub ShowVersion {
 }
 
 # This routine processes a "show startup-config"
-sub ShowStartupConfig {
-    print STDERR "    In ShowStartupConfig: $_" if ($debug);
+sub ShowRunningConfigBrief {
+    print STDERR "    In ShowRunningConfigBrief: $_" if ($debug);
 
     while (<INPUT>) {
 	tr/\015//d;
@@ -287,9 +290,9 @@ sub DoNothing {print STDOUT;}
 
 # Main
 @commandtable = (
-    {'show system'		=> 'ShowSystem'},
-    {'show version'		=> 'ShowVersion'},
-    {'show startup-config'	=> 'ShowStartupConfig'}
+    {'show system'			=> 'ShowSystem'},
+    {'show version'			=> 'ShowVersion'},
+    {'show running-config brief'	=> 'ShowRunningConfigBrief'}
 );
 # Use an array to preserve the order of the commands and a hash for mapping
 # commands to the subroutine and track commands that have been completed.
