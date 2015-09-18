@@ -6,4 +6,3 @@ test-csbrancid: src/csbrancid
 	perl -c $<
 
 test-csblogin: src/csblogin
-	perl -c $<
