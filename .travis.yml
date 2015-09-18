@@ -1,0 +1,11 @@
+language: perl
+perl:
+    - "5.20"
+    - "5.18"
+    - "5.16"
+    - "5.14"
+install:
+    # This install command is to override the default install procedure for 
+    # perl files that requires a Build.PL or Makefile.PL
+    - ls
+script: make -f .Makefile test
