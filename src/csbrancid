@@ -204,8 +204,8 @@ sub ShowVersion {
 }
 
 # This routine processes a "show startup-config"
-sub ShowRunningConfigBrief {
-    print STDERR "    In ShowRunningConfigBrief: $_" if ($debug);
+sub ShowStartupConfig {
+    print STDERR "    In ShowStartupConfig: $_" if ($debug);
 
     while (<INPUT>) {
 	tr/\015//d;
@@ -292,7 +292,7 @@ sub DoNothing {print STDOUT;}
 @commandtable = (
     {'show system'			=> 'ShowSystem'},
     {'show version'			=> 'ShowVersion'},
-    {'show running-config brief'	=> 'ShowRunningConfigBrief'}
+    {'show startup-config'	=> 'ShowStartupConfig'}
 );
 # Use an array to preserve the order of the commands and a hash for mapping
 # commands to the subroutine and track commands that have been completed.
