@@ -1,10 +1,8 @@
-Support for Cisco Small Business in RANCID
-==========================================
+# Support for Cisco Small Business in RANCID
 
 [![Travis CI](https://travis-ci.org/chrpinedo/rancid-cisco-sb.svg)](https://travis-ci.org/chrpinedo/rancid-cisco-sb)
 
-Introduction
-------------
+## Introduction
 
 I like using [RANCID](http://www.shrubbery.net/rancid) to manage a backup of all
 the network devices of a network: switches, routers, firewalls,... However,
@@ -27,20 +25,35 @@ switches that comes with an tenel/SSH CLI:
 Caution! Not all switch models of the previous series comes with an telnet/SSH
 CLI and so they cannot be backed up with RANCID (see [Issue #12](http://github.com/chrpinedo/rancid-cisco-sb/issues/12)).
 
-Installation
-------------
+## Installation
 
-- Download src/csblogin and src/csbrancid files and put them in the 
-  RANCID's PATH (in my case, /opt/rancid/bin). Don't forget to give them 
-  execution permissions.
-- Edit rancid-fe file located in the RANCID's PATH (in my case,
-  /opt/rancid/bin/rancid-fe) and insert a new item in the %vendortable
-  dictionary:
+### For RANCID 2.x
 
-		'cisco-sb'        => 'csbrancid',
+- Download src/csblogin and src/csbrancid files and put them in the RANCID's PATH (in my case, /opt/rancid/bin).
+  - Give them execution permissions (a+rx).
+  - Verify that [shebangs](https://en.wikipedia.org/wiki/Shebang_%28Unix%29) are pointing to correct perl and expect executables.
+- Edit rancid-fe file located in the RANCID's PATH (in my case, /opt/rancid/bin/rancid-fe) and insert a new item in the %vendortable dictionary:
 
-Usage
------
+```
+'cisco-sb'        => 'csbrancid',
+```
+
+### For RANCID 3.x
+
+I couldn't verify that this works with RANCID v3.x, so please take it with caution.
+I would be pleased If you could provide me some feedback in [issue #8](https://github.com/chrpinedo/rancid-cisco-sb/issues/8).
+
+- Download src/csblogin and src/csbrancid files and put them in the RANCID's PATH (in my case, /opt/rancid/bin).
+  - Give them execution permissions (a+rx).
+  - Verify that [shebangs](https://en.wikipedia.org/wiki/Shebang_%28Unix%29) are pointing to correct perl and expect executables.
+- In the configuration directory of RANCID (in my case, /opt/rancid/etc), add the following lines to the rancid.types.conf file (create it if necessary):
+
+```
+cisco-sb;script;csbrancid
+cisco-sb;login;csblogin
+```
+
+## Usage
 
 - Insert the device to backup in the router.db file:
 
