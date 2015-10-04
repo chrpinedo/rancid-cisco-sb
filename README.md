@@ -18,10 +18,14 @@ By Googling I found how to [backup a Cisco SRW2008P switch with
 RANCID](http://www.mork.no/~bjorn/srw2008/). I have modified those files to
 support not only a SRW switch but also a SG300 switch.
 
-This files add support for:
+These files add support to RANCID in order to backup Cisco Small Business
+switches that comes with an tenel/SSH CLI:
 - SRW series switches
 - SG series switches
 - SFE series switches
+
+Caution! Not all switch models of the previous series comes with an telnet/SSH
+CLI and so they cannot be backed up with RANCID (see [Issue #12](http://github.com/chrpinedo/rancid-cisco-sb/issues/12)).
 
 Installation
 ------------
