@@ -57,15 +57,22 @@ cisco-sb;login;csblogin
 
 - Insert the device to backup in the router.db file:
 
-		test.example.com:cisco-sb:up:
+```
+test.example.com:cisco-sb:up:
+```
 
 - Modify your .cloginrc file:
 
-		add user test.example.com        {user}
-		add password test.example.com     {password}
-		add autoenable test.example.com    1
-		add method test.example.com        ssh
-		add userprompt test.example.com  {"User Name:"}
+``` 
+add user test.example.com	    {user}
+add password test.example.com	    {password}
+add autoenable test.example.com	    1
+add method test.example.com	    ssh
+#add method test.example.com	    ssh:2222	# SSH port TCP/2222
+#add method test.example.com	    telnet	# For telnet default TCP port
+#add method test.example.com	    telnet:2323	# For telnet port TCP/2323
+add userprompt test.example.com	    {"User Name:"}
+```
 
 - Enjoy it!
 
