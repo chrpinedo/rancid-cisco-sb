@@ -169,20 +169,29 @@ sub sortbyipaddr {
 sub ShowSystem {
     print STDERR "    In ShowSystem: $_" if ($debug);
 
+    my $skip_section = 0;
     while (<INPUT>) {
+	# delete rare characters
 	tr/\015//d;
-	last if(/^$prompt/);
-	next if(/^(\s*|\s*$cmd\s*)$/);
+
+	# finish cases
 	return(-1) if (/command authorization failed/i);
+	last if(/^$prompt/);
 
-	# remove uptime & fan status
-	/ Up Time/ && next;
-	/ Fans Status/ && next;
-	/ Temperature/ && next;
-	/ OK/ && next;
+	# new section comes, reset skip
+	if(/^(\s*|\s*$cmd\s*)$/) {
+	    $skip_section = 0;
+	    next;
+	}
 
+	# begin of a section to avoid
+	$skip_section=1 if(/Unit\s+Up\s+(T|t)ime/);
+	$skip_section=1 if(/Unit\s+(Fans|FAN)/);
+	$skip_section=1 if(/Unit\s+Temperature/);
+
+	# if not skiped, save the log
+	next if ($skip_section);
 	ProcessHistory("COMMENTS","keysort","B0", "!$_") && next;
-
     }
     return(0);
 }
