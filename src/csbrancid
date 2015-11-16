@@ -169,13 +169,29 @@ sub sortbyipaddr {
 sub ShowSystem {
     print STDERR "    In ShowSystem: $_" if ($debug);
 
+    local $_ = <INPUT>;
+    seek(INPUT, -length($_), 1);
+
+    if (/command authorization failed/i) {
+	return(-1);
+    } elsif (/^$prompt/) {
+	return(0);
+    } elsif (/^\s*$/) {
+	ShowSystemSections();
+    } else {
+	ShowSystemLines();
+    }
+
+    return(0);
+}
+
+sub ShowSystemSections {
     my $skip_section = 0;
     while (<INPUT>) {
 	# delete rare characters
 	tr/\015//d;
 
 	# finish cases
-	return(-1) if (/command authorization failed/i);
 	last if(/^$prompt/);
 
 	# new section comes, reset skip
@@ -193,7 +209,25 @@ sub ShowSystem {
 	next if ($skip_section);
 	ProcessHistory("COMMENTS","keysort","B0", "!$_") && next;
     }
-    return(0);
+}
+
+sub ShowSystemLines {
+    while (<INPUT>) {
+	# delete rare characters
+	tr/\015//d;
+
+	# finish cases
+	last if(/^$prompt/);
+
+	# remove lines
+	next if(/^(\s*|\s*$cmd\s*)$/);
+	next if(/Up Time/);
+	# finish lines
+	last if(/Unit\s*Temperature/);
+
+	# if not skiped, save the log
+	ProcessHistory("COMMENTS","keysort","B0", "!$_") && next;
+    }
 }
 
 # This routine parses "show version"
