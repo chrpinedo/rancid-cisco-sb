@@ -169,25 +169,25 @@ sub sortbyipaddr {
 sub ShowSystem {
     print STDERR "    In ShowSystem: $_" if ($debug);
 
-    local $_ = <INPUT>;
-    seek(INPUT, -length($_), 1);
+    $_ = <INPUT>;
 
     if (/command authorization failed/i) {
 	return(-1);
     } elsif (/^$prompt/) {
 	return(0);
     } elsif (/^\s*$/) {
-	ShowSystemSections();
+	ShowSystemSections($_);
     } else {
-	ShowSystemLines();
+	ShowSystemLines($_);
     }
 
     return(0);
 }
 
 sub ShowSystemSections {
+    $_ = $_[0];
     my $skip_section = 0;
-    while (<INPUT>) {
+    while () {
 	# delete rare characters
 	tr/\015//d;
 
@@ -197,6 +197,7 @@ sub ShowSystemSections {
 	# new section comes, reset skip
 	if(/^(\s*|\s*$cmd\s*)$/) {
 	    $skip_section = 0;
+	    $_ = <INPUT>;
 	    next;
 	}
 
@@ -205,28 +206,39 @@ sub ShowSystemSections {
 	$skip_section=1 if(/Unit\s+(Fans|FAN)/);
 	$skip_section=1 if(/Unit\s+Temperature/);
 
-	# if not skiped, save the log
-	next if ($skip_section);
-	ProcessHistory("COMMENTS","keysort","B0", "!$_") && next;
+	# we are on a section to avoid?
+	if($skip_section) {
+	    $_ = <INPUT>;
+	    next;
+	}
+	ProcessHistory("COMMENTS","keysort","B0", "!$_");
+	$_ = <INPUT>;
     }
 }
 
 sub ShowSystemLines {
-    while (<INPUT>) {
+    $_ = $_[0];
+    my $skip = 0;
+    while () {
 	# delete rare characters
 	tr/\015//d;
 
 	# finish cases
 	last if(/^$prompt/);
-
-	# remove lines
-	next if(/^(\s*|\s*$cmd\s*)$/);
-	next if(/Up Time/);
-	# finish lines
 	last if(/Unit\s*Temperature/);
 
+	# remove lines but continue
+	$skip=1 if(/^(\s*|\s*$cmd\s*)$/);
+	$skip=1 if(/Up Time/);
+
 	# if not skiped, save the log
-	ProcessHistory("COMMENTS","keysort","B0", "!$_") && next;
+	if($skip){
+	    # reset skip for next line
+	    $skip = 0;
+	} else {
+	    ProcessHistory("COMMENTS","keysort","B0", "!$_");
+	}
+	$_ = <INPUT>;
     }
 }
 
