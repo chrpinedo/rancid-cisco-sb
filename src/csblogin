@@ -467,7 +467,7 @@ proc run_commands { prompt command } {
 	    expect {
 		-re "^\[^\n\r *]*$prompt *$"	{}
 		-re "^\[^\n\r]*$prompt."	{ exp_continue }
-		-re "(\r\n|\n)"			{ exp_continue }
+		-re "\[\r\n]+"			{ exp_continue }
             }
 	}
     } else {
@@ -475,7 +475,7 @@ proc run_commands { prompt command } {
 	expect {
 		-re "^\[^\n\r *]*$prompt *$"	{}
 		-re "^\[^\n\r]*$prompt."	{ exp_continue }
-		-re "(\r\n|\n)"			{ exp_continue }
+		-re "\[\r\n]+"			{ exp_continue }
 	}
     }
     send "exit\r\n"
