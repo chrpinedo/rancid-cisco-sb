@@ -1,5 +1,6 @@
 # Support for Cisco Small Business in RANCID
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/122e07ffdd1540ae833b054699f58f0c)](https://www.codacy.com/app/chr-pinedo/rancid-cisco-sb?utm_source=github.com&utm_medium=referral&utm_content=chrpinedo/rancid-cisco-sb&utm_campaign=badger)
 [![Travis CI](https://travis-ci.org/chrpinedo/rancid-cisco-sb.svg)](https://travis-ci.org/chrpinedo/rancid-cisco-sb)
 
 ## Introduction
