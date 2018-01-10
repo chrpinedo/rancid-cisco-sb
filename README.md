@@ -2,6 +2,8 @@
 
 [![Travis CI](https://travis-ci.org/chrpinedo/rancid-cisco-sb.svg)](https://travis-ci.org/chrpinedo/rancid-cisco-sb)
 
+**Unmaintained**. This repository is read-only. I can't continue evolving the script because I don't work with Cisco Small Business switches anymore. You are free to clone this repo and continue evolving it.
+
 ## Introduction
 
 I like using [RANCID](http://www.shrubbery.net/rancid) to manage a backup of all
